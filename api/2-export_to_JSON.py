@@ -32,4 +32,4 @@ if __name__ == '__main__':
     with open(f"{USER_ID}.json", mode='w') as json_file:
         json.dump(data, json_file)
 
-    print(f"Data aas been exported to {USER_ID}.json")
+    print(f"Data as been exported to {USER_ID}.json")
