@@ -14,7 +14,7 @@ if __name__ == '__main__':
     user_response = requests.get(f"{API_URL}/users/{USER_ID}").json()
 
     """ to do list for the user """
-    todo_response = requests.get(f"{API_URL}/todos?userid={USER_ID}").json()
+    todo_response = requests.get(f"{API_URL}/todos?userId={USER_ID}").json()
 
     """ write to CSV file """
     with open(f"{USER_ID}.csv", mode='w') as csv_file:
