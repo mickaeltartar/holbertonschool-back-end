@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" script to export data in the JSON format."""
+""" script to export data in the JSON format """
 import json
 import requests
 
@@ -12,20 +12,19 @@ if __name__ == '__main__':
     """ todo list for the given user """
     todo_response = requests.get(f"{API_URL}/todos").json()
 
-    """ create dictionnary for task users """
-    task_user = {}
+    """ create dictionary of tasks grouped by user"""
+    task_by_user = {}
     for task in todo_response:
         user_id = task['userId']
-        if user_id is not task_user:
-            task_user[user_id] = []
-            task_user[user_id].append({
-                "task": task['title'],
-                "completed": task['completed'],
-                "username": next(user['username']
-                                 for user in user_response
-                                 if user['id'] == user_id)
-            })
+        if user_id not in task_by_user:
+            task_by_user[user_id] = []
+        task_by_user[user_id].append({
+            "task": task['title'],
+            "completed": task['completed'],
+            "username": next(user[
+                'username'] for user in user_response if user['id'] == user_id)
+        })
 
-    """ to json file """
+    """ Write to JSON file """
     with open("todo_all_employees.json", mode='w') as json_file:
-        json.dump(task_user, json_file)
+        json.dump(task_by_user, json_file)
