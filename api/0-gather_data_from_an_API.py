@@ -2,31 +2,30 @@
 """ using this REST API """
 
 import requests
-from sys import argv
+import sys
 
+API_URL = "https://jsonplaceholder.typicode.com/"
 
-API_URL = 'https://jsonplaceholder.typicode.com'
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: ./0-gather_data_from_an_API.py <employee id>")
+        sys.exit(1)
 
+    id = sys.argv[1]
 
-if __name__ == '__main__':
-
-    """ check user's informations """
-    user_response = requests.get(f"{API_URL}/users/{argv[1]}")
-    user_data = user_response.json()
+    """ check user's information """
+    employee = requests.get(API_URL + "users/{}".format(id)).json()
 
     """ check user's to do list """
-    todo_response = requests.get(f"{API_URL}/todos?userId={argv[1]}")
-    todo_data = todo_response.json()
+    todo_list = requests.get("{}todos?userId={}".format(API_URL, id)).json()
 
-    """ filter for task completed """
-    completed_task = [task for task in todo_data if task['completed']]
+    """ filter for task complete """
+    completed_tasks = [task.get("title")
+                       for task in todo_list if task.get("completed") is True]
 
     """ display progression """
-    employee_name = user_data["name"]
-    num_task_completed = len(completed_task)
-    total_task = len(todo_data)
     print("Employee {} is done with tasks({}/{}):".format(
-        employee_name, num_task_completed, total_task))
+        employee.get("name"), len(completed_tasks), len(todo_list)))
 
-    for task in completed_task:
-        print(f"\t {task['title']}")
+    for task in completed_tasks:
+        print("\t {}".format(task))
