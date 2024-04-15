@@ -30,4 +30,3 @@ if __name__ == '__main__':
 
     for task in completed_task:
         print(f"\t {task['title']}")
-    
