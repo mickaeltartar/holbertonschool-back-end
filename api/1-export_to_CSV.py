@@ -21,12 +21,12 @@ if __name__ == '__main__':
     with open(f"{USER_ID}.csv", mode='w') as csv_file:
         writter = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
-    for task in todo_response:
-        writter.writerow([
-            user_response['id'],
-            user_response['username'],
-            task['completed'],
-            task['title']
-        ])
+        for task in todo_response:
+            writter.writerow([
+                user_response['id'],
+                user_response['username'],
+                task['completed'],
+                task['title']
+            ])
 
         print(f"Data as been exported to {USER_ID}.csv")
