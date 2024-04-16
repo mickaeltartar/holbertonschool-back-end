@@ -21,7 +21,7 @@ if __name__ == '__main__':
         USER_ID: [
             {
                 "task": task['title'],
-                "completed": task['compleeted'],
+                "completed": task['completed'],
                 "username": user_response['username']
             }
             for task in todo_response
